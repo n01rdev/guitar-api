@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+
+:root{
+    --bg-color: #121212;
+    --font-color: #FFFFFFFF;
+    --main-color: #121212;
+    --secondary-color: #9999;
+    --accent-color2: #5b2b24;
+    --accent-color3: #3D1D18FF;
+    --accent-color: #6B0000;
+    --incorrect-color: #ff0073;
+    --main-font-family: 'Montserrat', sans-serif;
+    --accent-font-family: 'Roboto', sans-serif;
+    --title-weight: 900;
+    --subtitle-weight: 700;
+    --accent-weight: 500;
+}
