@@ -1,0 +1,97 @@
+body{
+    color: var(--font-color);
+}
+
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+header{
+    padding-top: 20vh;
+    font-family: var(--font-family);
+    font-size: 3rem;
+    font-weight: var(--title-weight);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+h1{
+    color: var(--font-color);
+}
+
+header span{
+    color: var(--accent-color);
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+section form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section form label{
+    font-size: 1.2rem;
+    font-family: var(--font-family);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+section form input{
+    width: 300px;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid var(--accent-color);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--font-color);
+    font-size: 1.2rem;
+    font-family: var(--font-family);
+    font-weight: var(--accent-weight);
+    margin-bottom: 20px;
+    text-align: center;
+    outline: none;
+}
+
+#password{
+    padding: 0.25rem 0;
+    height: 20px;
+}
+
+#passwordLabel{
+    margin-top: 15px;
+}
+
+#submit{
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-radius: 1.5rem;
+    background: var(--accent-color);
+    color: var(--font-color);
+    font-size: 1.2rem;
+    font-family: var(--font-family);
+    font-weight: var(--accent-weight);
+    margin-bottom: 20px;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+
+}
