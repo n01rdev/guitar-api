@@ -30,7 +30,7 @@ public class RegisterServlet extends HttpServlet {
         return result.toString();
     }
 
-    public static String getHashedPassword(final String base) {
+    public String getHashedPassword(final String base) {
         try{
             final MessageDigest digest = MessageDigest.getInstance("SHA-256");
             final byte[] hash = digest.digest(base.getBytes(StandardCharsets.UTF_8));
@@ -55,23 +55,21 @@ public class RegisterServlet extends HttpServlet {
         String passwordPlainText = request.getParameter("userPassRegister");
         String passwordSalt = getRandomString(20);
         String passwordHashed = getHashedPassword(passwordPlainText + passwordSalt);
-
-
+        Connection connection;
 
         try {
-            Connection connection = DBConnection.getConnection();
+            connection = DBConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement("insert into userName values(?,?)");
             ps.setString(1, username);
             ps.setString(2, passwordHashed);
             int i = ps.executeUpdate();
-
-            if(i > 0) {
+            if (i > 0) {
                 out.println("Registrado con éxito");
                 out.println(passwordHashed);
             }
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
