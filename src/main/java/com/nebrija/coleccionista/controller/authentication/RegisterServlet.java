@@ -53,15 +53,18 @@ public class RegisterServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String username = request.getParameter("userNameRegister");
         String passwordPlainText = request.getParameter("userPassRegister");
+        //boolean isAdmin = request.getParameter("isAdmin") != null; //En Desarrollo.
+        int idUser = 0; // Autoincrement en la DB.
         String passwordSalt = getRandomString(20);
         String passwordHashed = getHashedPassword(passwordPlainText + passwordSalt);
-        Connection connection;
 
         try {
+            Connection connection;
             connection = DBConnection.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into userName values(?,?)");
-            ps.setString(1, username);
-            ps.setString(2, passwordHashed);
+            PreparedStatement ps = connection.prepareStatement("insert into userName values(?,?,?)");
+            ps.setInt(1, idUser);
+            ps.setString(2, username);
+            ps.setString(3, passwordHashed);
             int i = ps.executeUpdate();
             if (i > 0) {
                 out.println("Registrado con éxito");
