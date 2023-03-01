@@ -60,17 +60,17 @@ public class RegisterServlet extends HttpServlet {
 
         try {
             Connection connection;
-            connection = DBConnection.getConnection();
+            connection = DBConnection.getConnection(); //Abrimos la Conexión con la BD. Actualmente Falla.
             PreparedStatement ps = connection.prepareStatement("insert into userName values(?,?,?)");
             ps.setInt(1, idUser);
             ps.setString(2, username);
             ps.setString(3, passwordHashed);
             int i = ps.executeUpdate();
+            connection.close();
             if (i > 0) {
                 out.println("Registrado con éxito");
                 out.println(passwordHashed);
             }
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
