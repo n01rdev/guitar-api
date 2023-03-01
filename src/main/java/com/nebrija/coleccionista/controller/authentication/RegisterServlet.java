@@ -16,13 +16,12 @@ import java.sql.SQLException;
 @WebServlet(name = "RegisterServlet", value = "/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 
-    private String getRandomString(int n) {
+    private String getRandomString(int n) { //Método para crear la Sal.
 
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder result = new StringBuilder(n);
 
         for (int i = 0; i < n; i++) {
-
             int index = (int)(characters.length() * Math.random());
             result.append(characters.charAt(index));
         }
@@ -30,7 +29,7 @@ public class RegisterServlet extends HttpServlet {
         return result.toString();
     }
 
-    public String getHashedPassword(final String base) {
+    public String getHashedPassword(final String base) { //Método de Hasheo para las contraseñas.
         try{
             final MessageDigest digest = MessageDigest.getInstance("SHA-256");
             final byte[] hash = digest.digest(base.getBytes(StandardCharsets.UTF_8));
@@ -42,8 +41,8 @@ public class RegisterServlet extends HttpServlet {
                 hexString.append(hex);
             }
             return hexString.toString();
-        } catch(Exception ex){
-            throw new RuntimeException(ex);
+        } catch(Exception e){
+            throw new RuntimeException(e);
         }
     }
 
@@ -54,22 +53,23 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("userNameRegister");
         String passwordPlainText = request.getParameter("userPassRegister");
         //boolean isAdmin = request.getParameter("isAdmin") != null; //En Desarrollo.
-        int idUser = 0; // Autoincrement en la DB.
+        int idUser = 0; // Autoincremental en la DB.
         String passwordSalt = getRandomString(20);
         String passwordHashed = getHashedPassword(passwordPlainText + passwordSalt);
 
         try {
             Connection connection;
             connection = DBConnection.getConnection(); //Abrimos la Conexión con la BD. Actualmente Falla.
-            PreparedStatement ps = connection.prepareStatement("insert into userName values(?,?,?)");
+            String query = "INSERT INTO userName VALUES (?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, idUser);
             ps.setString(2, username);
             ps.setString(3, passwordHashed);
             int i = ps.executeUpdate();
             connection.close();
             if (i > 0) {
-                out.println("Registrado con éxito");
-                out.println(passwordHashed);
+                out.println("Registrado con éxito"); //Imprimir mediante script, posiblemente futura modal.
+                out.println(passwordHashed); //Borrar. Únicamente como prueba.
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
